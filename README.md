@@ -1,47 +1,40 @@
 PythonEw
 =========
 
-By OSOP 
+This is an updating of the [PythonEw](https://github.com/osop/osop-python-ew) Python 2.x compatible modules by [OSOP](http://www.osop.com.pa).
 
-http://www.osop.com.pa
+```python-ew`` is a Python wrapper for accessing a Earthworm shared memory rings, allowing you to extend the Earthworm system with Python code.
 
-![OSOP LOGO](http://www.osop.com.pa/wp-content/uploads/2012/02/ss.png)
-
-Python wrapper for accessing an Earthworm shared memory ring.
 Earthworm is a set of opensource programs, tools and libraries that are used in the development of software for maintaining seismic networks, research and other seismological and geophysical applications. 
 http://vps.isti.com/trac/ew/
 
-The main objective of these wrapper-modules is to make it easier for people to contribute to the Earthworm project; developing Earthworm modules using these wrappers is truly a joy as it enables developers to have directy access to memory rings whilst enjoying all the functionality that *Python* itself brings to the table. Introducing *Python* into the Earthworm picture will allow new people to come in and contribute.
-
-Although these modules are far from complete, they are currently quite functional and usable; the ```Tracebuf2``` module specially, is already being used in production scenarios, and it has proven to be a very usefull tool.
-
-**MODULE OVERVIEW**
-
-A module consists of one *C* and two *Python* sources. The *C* source are basically Python-wrapped functions that allow Read/Write operations of a certain Earthworm datatype. One of the *Python* source contains interfaces to the *C* wrapped functions; the other *Python* source is a basic setup tool.
-
-Example:
-```
-Tracebuf2
-    tracebuf2module/
-        tracebuf2module.c
-        tracebuf2ring.py
-        trace_setup.py
-```
-In order to use a module from *Python*, the *C* source, in this case ```tracebuf2module.c```, needs to be compiled into a dynamically linked library that *Python* can load.
-
-**HOW TO INSTALL**
+### Installation
 
 In order to follow theses steps, Earthworm needs to be previously
 installed in your computer. Also, note that these are steps for GNU/Linux - UNIX only.
 
-1. Use the makefile included in ```ring_access/Makefile``` to create ```ringwriter.o``` and ```ringreader.o```. Once created, copy them into the Earthworm's ```/bin/``` directory. Note that you need to edit the ```INCLUDE``` and ```LIBRARIES``` variables in the makefile to match your Earthworm installation. These are libraries and binaries needed by all the modules.
+1. Ensure that the `EW_HOME` environment variable points to the folder that contains the ```/include/``` and ```/lib/``` folders for earthworm.
+2. Build the ```ringreader.o``` and ```ringwriter.o``` earthworm interface code, and copy them and their associated header files to the appropriate places in the earthworm distribution:
 
-2. Copy ```ringwriter.h``` and ```ringreader.h``` into the Earthworm's ```/include/``` directory.
+       cd ring_access
+       make
+       cp ringreader.o ringwriter.o ${EW_HOME}/lib
+       cp ringreader.h ringwriter.h ${EW_HOME}/include
 
-3. Choose the module you want to compile and simply run the corresponding python setup script.
-Example: 
+3. Install the python module:
+    
+       python3 setup.py build
+       python3 setup.py install
 
-    ```python trace_setup.py build```
+### Example usage
 
-This will create a dynamically linked library corresponding to the module, and it's the one
-that the python module will try to load.
+Reading ```TYPE_TRACEBUF2``` message from a ring.  Let's assume your ring is named ```WAVE_RING```.
+
+    python3
+    >>> from python_ew.tracebuf2.tracebuf2ring import Tracebuf2Ring
+    >>> ring = Tracebuf2Ring('WAVE_RING', 'MOD_WILDCARD')
+    >>> packets = ring.read()
+    >>> packets[0]
+    {'pinno': 0, 'nsamp': 100, 'starttime': 1564770703.968393, 'endtime': 1564770704.958393, 'samprate': 100.0, 'sta': 'FOO', 'net': 'XX', 'chan': 'HNN', 'loc': '--', 'version': '20', 'datatype': 'i4', 'quality': '', 'pad': '', 'samples': [-22129, -22130, -22131, -22132, -22129, -22130, -22128, -22128, -22130, -22128, -22130, -22128, -22128, -22129, -22129, -22129, -22129, -22130, -22127, -22128, -22129, -22128, -22128, -22130, -22131, -22128, -22131, -22131, -22128, -22128, -22132, -22130, -22125, -22128, -22129, -22126, -22128, -22130, -22133, -22132, -22131, -22132, -22130, -22131, -22128, -22129, -22132, -22127, -22129, -22129, -22129, -22132, -22130, -22127, -22129, -22131, -22127, -22128, -22131, -22128, -22128, -22130, -22129, -22130, -22129, -22128, -22133, -22128, -22129, -22133, -22131, -22130, -22128, -22131, -22130, -22128, -22132, -22132, -22129, -22127, -22129, -22132, -22130, -22132, -22133, -22128, -22129, -22130, -22129, -22130, -22128, -22129, -22130, -22131, -22130, -22128, -22129, -22130, -22129, -22129]}
+    
+

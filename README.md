@@ -1,20 +1,18 @@
-PythonEw
+python-ew
 =========
 
 This is an updating of the [PythonEw](https://github.com/osop/osop-python-ew) Python 2.x compatible modules by [OSOP](http://www.osop.com.pa).
 
-```python_ew``` is a Python wrapper for accessing a Earthworm shared memory rings, allowing you to extend the Earthworm system with Python code.
+`python-ew` is a Python wrapper for accessing a Earthworm shared memory rings, allowing you to extend the Earthworm system with Python code.
 
-Earthworm is a set of opensource programs, tools and libraries that are used in the development of software for maintaining seismic networks, research and other seismological and geophysical applications. 
-http://vps.isti.com/trac/ew/
+[Earthworm](http://earthwormcentral.org) itself is a set of open source programs, tools and libraries that are used in the development of software for maintaining seismic networks, research and other seismological and geophysical applications.
 
 ### Installation
 
-In order to follow theses steps, Earthworm needs to be previously
-installed in your computer. Also, note that these are steps for GNU/Linux - UNIX only.
+In order to install `python_ew`, you need to have first installed Earthworm itself.  I've built this successfully on Linux against `earthworm-7.9` compiled with `EWBITS=64` and with "`-m64 -fPIC`" added to `GLOBALFLAGS` in `${EW_HOME}/environment/ew_linux.bash`
 
 1. Ensure that the `EW_HOME` environment variable points to the folder that contains the ```/include/``` and ```/lib/``` folders for earthworm.
-2. Build the ```ringreader.o``` and ```ringwriter.o``` earthworm interface code, and copy them and their associated header files to the appropriate places in the earthworm distribution:
+2. Build the `ringreader.o` and `ringwriter.o` earthworm interface code, and copy them and their associated header files to the appropriate places in the earthworm distribution:
 
        cd ring_access
        make
@@ -28,7 +26,7 @@ installed in your computer. Also, note that these are steps for GNU/Linux - UNIX
 
 ### Example usage
 
-Reading ```TYPE_TRACEBUF2``` message from a ring.  Let's assume your ring is named ```WAVE_RING```.
+Reading `TYPE_TRACEBUF2` message from a ring.  Let's assume your ring is named `WAVE_RING`, and you want to get all packets regardless of what module created them:
 
     python3
     >>> from python_ew.tracebuf2.tracebuf2ring import Tracebuf2Ring

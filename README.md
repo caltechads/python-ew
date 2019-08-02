@@ -3,7 +3,7 @@ PythonEw
 
 This is an updating of the [PythonEw](https://github.com/osop/osop-python-ew) Python 2.x compatible modules by [OSOP](http://www.osop.com.pa).
 
-```python-ew`` is a Python wrapper for accessing a Earthworm shared memory rings, allowing you to extend the Earthworm system with Python code.
+```python_ew``` is a Python wrapper for accessing a Earthworm shared memory rings, allowing you to extend the Earthworm system with Python code.
 
 Earthworm is a set of opensource programs, tools and libraries that are used in the development of software for maintaining seismic networks, research and other seismological and geophysical applications. 
 http://vps.isti.com/trac/ew/

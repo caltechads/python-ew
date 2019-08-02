@@ -1,5 +1,5 @@
 """
-Tracebuf2 python interface for Earthworm 
+Tracebuf2 python interface for Earthworm
 Copyright (C) 2013, OSOP SA Panama
 
 This program is free software: you can redistribute it and/or modify
@@ -16,48 +16,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os
-import sys
+from python_ew.tracebuf2 import tracebuf2module
+from python_ew.ring import Ring
 
-import tracebuf2module
-
-
-# ring.py must on parent folder,
-# Adding parent folder to the path.
-cwd = os.getcwd()
-ringdir = cwd[:cwd.rfind('/')]
-sys.path.append(ringdir)
-
-from ring import Ring
 
 class Tracebuf2Ring(Ring):
     """
     Class for Reading/Writing Tracebuf2 messages from/into a ring.
     """
     def __init__(self, ring_name, module_id):
-        Ring.__init__(self, ring_name, module_id, Tracebuf2Message)
+        super().__init__(ring_name, module_id, Tracebuf2Message)
 
-    def module_write(self, **args):
-        """
-        Implementing base class method, simply
-        calling the 'ring_write' function from
-        the tracebuf2module module.
-        """
-        return tracebuf2module.ring_write(**args)
+    def module_write(self, **kwargs):
+        return tracebuf2module.ring_write(**kwargs)
 
-    def module_read(self, **params):
-        """
-        Implementing base class method, simply
-        calling the 'ring_read' function from
-        the tracebuf2module module.
-        """
-        return tracebuf2module.ring_read(**params)
+    def module_read(self, **kwargs):
+        return tracebuf2module.ring_read(**kwargs)
+
 
 class Tracebuf2Message():
-    def __init__(self, pinno, nsamp, starttime, endtime,
-                samprate, sta, net, chan, loc,
-                version, datatype, quality, pad, samples):
-    
+
+    def __init__(self, pinno, nsamp, starttime, endtime, samprate, sta,
+                 net, chan, loc, version, datatype, quality, pad, samples):
+
         self.pinno = pinno
         self.nsamp = nsamp
         self.starttime = starttime
@@ -72,16 +53,16 @@ class Tracebuf2Message():
         self.quality = quality
         self.pad = pad
         self.samples = samples
-    
+
     def __str__(self):
         return str(Tracebuf2Message.toDict(self))
-    
-    __repr__ = __str__        
 
-    @staticmethod    
+    __repr__ = __str__
+
+    @staticmethod
     def toDict(trace_message):
         trace_dict = {}
-    
+
         trace_dict['pinno'] = trace_message.pinno
         trace_dict['nsamp'] = trace_message.nsamp
         trace_dict['starttime'] = trace_message.starttime
@@ -101,7 +82,7 @@ class Tracebuf2Message():
 
     @staticmethod
     def fromDict(trace_dict):
-        try:        
+        try:
             pinno = trace_dict.get('pinno')
             nsamp = trace_dict.get('nsamp')
             starttime = trace_dict.get('starttime')
@@ -119,8 +100,8 @@ class Tracebuf2Message():
 
             return Tracebuf2Message(pinno, nsamp, starttime, endtime,
                                     samprate, sta, net, chan, loc,
-                                    version, datatype, quality, pad, samples) 
+                                    version, datatype, quality, pad, samples)
 
         except KeyError:
-            print 'Invalid dictionary.'
+            print('Invalid dictionary.')
             return None

@@ -1,5 +1,5 @@
 """
-Heartbeat python interface for Earthworm 
+Heartbeat python interface for Earthworm
 Copyright (C) 2013, OSOP SA Panama
 
 This program is free software: you can redistribute it and/or modify
@@ -15,39 +15,30 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-    
-import os
 import datetime
 
-import heartbeatmodule
+from python_ew.heartbeat import heartbeatmodule
+from python_ew.tracebuf2 import tracebuf2module
+from python_ew.status.statusring import StatusMessage
 
-# ring.py must on parent folder,
-# Adding parent folder to the path.
-cwd = os.getcwd()
-ringdir = cwd[:cwd.rfind('/')]
-sys.path.append(ringdir)
+from python_ew.ring import Ring
 
-from ring import Ring
 
 #Interface class for Reading/Writing Darien Type message from/into a ring.
 class HeartBeatRing(Ring):
+
     def __init__(self, ring_name, module_id):
-        Ring.__init__(self, ring_name, module_id, StatusMessage)
-        
+        super().__init__(ring_name, module_id, StatusMessage)
+
     def module_write(self, **args):
         """
-        Implementing base class method, simply
-        calling the 'ring_write' function from
-        the tracebuf2module module.
+        Implementing base class method, simply calling the 'ring_write' function from the tracebuf2module module.
         """
         return tracebuf2module.ring_write(**args)
 
     def module_read(self, **params):
-        raise TypeError('Reading heartbeat type messages is not supported.')
-        
-    def module_read(self, **params):
         raise TypeError("Writing heartbeat type messages is not supported. Use 'beat' instead.")
-        
+
     def beat(self):
         args = {}
         args = self.completeWriteDict(args)

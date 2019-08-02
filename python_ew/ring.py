@@ -1,5 +1,5 @@
 """
-Generic python ring interface for Earthworm 
+Generic python ring interface for Earthworm
 Copyright (C) 2013, OSOP SA Panama
 
 This program is free software: you can redistribute it and/or modify
@@ -16,14 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
-import os
 import sys
 
 
-class Ring():
+class Ring:
     """
-    Ring class defines a generic interface tha will be extended 
+    Ring class defines a generic interface tha will be extended
     to use with each specific type.
     """
     def __init__(self, ring_name, module_id, data_type):
@@ -51,9 +49,9 @@ class Ring():
             self.sequence += 1
             return True
 
-        except Exception, err:
-            print 'Caught exception %s' % str(err)
-            print "Unexpected error:", sys.exc_info()[0]
+        except Exception as err:
+            print('Caught exception %s' % str(err))
+            print("Unexpected error:", sys.exc_info()[0])
             return False
 
     def read(self, *args, **kwargs):
@@ -67,20 +65,20 @@ class Ring():
             data = self.module_read(*args, **params)
 
             data_list = []
-    
+
             for item in data:
                 data_list.append(self.data_type.fromDict(item))
-        
+
             return data_list
 
-        except Exception, err:
-            print 'Caught exception %s' % str(err)
-            print "Unexpected error:", sys.exc_info()[0]
+        except Exception as err:
+            print('Caught exception %s' % str(err))
+            print("Unexpected error:", sys.exc_info()[0])
             return []
 
     def completeWriteDict(self, data_dict):
         """
-        Completes 'data_dict' including the parameters 
+        Completes 'data_dict' including the parameters
         needed for a write operation.
         """
         data_dict['ring'] = self.ring
@@ -91,7 +89,7 @@ class Ring():
 
     def createReadDict(self):
         """
-        Creates a dict including the parameters 
+        Creates a dict including the parameters
         needed for a write operation.
         """
         read_dict = {}
@@ -100,4 +98,3 @@ class Ring():
         read_dict['module'] = self.module_id
 
         return read_dict
-

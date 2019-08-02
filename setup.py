@@ -107,7 +107,7 @@ heartbeat_module = Extension(
 
 setup(
     name='python_ew',
-    version='1.0.0',
+    version='2.0.0',
     description='Modules that can interact with Earthworm Rings.',
     packages=['python_ew', 'python_ew.heartbeat', 'python_ew.status', 'python_ew.tracebuf2'],
     ext_modules=[

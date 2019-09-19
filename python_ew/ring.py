@@ -21,9 +21,9 @@ import sys
 
 class Ring:
     """
-    Ring class defines a generic interface tha will be extended
-    to use with each specific type.
+    Ring class defines a generic interface tha will be extended to use with each specific type.
     """
+
     def __init__(self, ring_name, module_id, data_type):
         self.module_id = module_id
         self.ring = ring_name

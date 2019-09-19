@@ -1,7 +1,7 @@
 """
 Testing module for tracebuf2 functionality.
-Currently only works for Rings with no previous
-TRACEBUF2_TYPE data on them.
+
+Currently only works for Rings with no previous TYPE_TRACEBUF2data on them.
 """
 
 import unittest
@@ -10,6 +10,7 @@ from python_ew.tracebuf2.tracebuf2ring import Tracebuf2Ring, Tracebuf2Message
 
 
 class TestTracebuf2(unittest.TestCase):
+
     def setUp(self):
         self.tracebuf2 = Tracebuf2Ring('WAVE', 'MOD_WILDCARD')
 

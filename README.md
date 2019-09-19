@@ -1,4 +1,4 @@
-python_ew
+python-ew
 =========
 
 This is a 2019 updating of the [PythonEw](https://github.com/osop/osop-python-ew) Python 2.x compatible modules by

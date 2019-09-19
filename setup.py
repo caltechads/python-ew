@@ -56,16 +56,16 @@ environment.
 
         if not EW_LIBS:
             error = """
-The EW_HOME environment variable is set to {0} but we could not find a "libs" subfolder.  We need the .o files from the
-Earthworm build so that we can properly link our C Extensions.
-""".format(EW_HOME)
+The EW_HOME environment variable is set to {0} but we could not find a "lib" subfolder.  We tried: {}. We need the .o
+files from the Earthworm build so that we can properly link our C extensions.
+""".format(EW_HOME, ", ".join(os.path.join(EW_HOME, 'lib'), os.path.join(EW_HOME, 'earthworm_7.9', 'lib')))
             sys.exit(error)
 
         if not EW_INCLUDES:
             error = """
-The EW_HOME environment variable is set to {0} but there is no "includes" subfolder.  We need
-the .h files from the Earthworm )uild so that we can properly compile our C Extensions.
-""".format(EW_HOME)
+The EW_HOME environment variable is set to {0} but we could not find a "include" subfolder.  We tried: {}. We need
+the .h files from the Earthworm build so that we can properly compile our C extensions.
+""".format(EW_HOME, ", ".join(os.path.join(EW_HOME, 'include'), os.path.join(EW_HOME, 'earthworm_7.9', 'include')))
             sys.exit(error)
 
     def run(self):

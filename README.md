@@ -20,12 +20,24 @@ applications.
 
 ## Installation
 
-In order to install `python_ew`, you need to have first installed Earthworm itself.  This module builds successfully on
+In order to install `python-ew`, you need to have first installed Earthworm itself.  This module builds successfully on
 Linux against `earthworm-7.9` compiled with `EWBITS=64` and with "`-m64 -fPIC`" added to `GLOBALFLAGS` in
 `${EW_HOME}/environment/ew_linux.bash`.  Your milage may vary for other versions of Earthworm, or on other platforms.
 
-Ensure that the `EW_HOME` environment variable points to the folder that contains the ```/include/``` and ```/lib/```
-folders for earthworm.
+To compile the `python-ew` C extensions, we need to find the Earthworm `.o` and `.h` files.  We'll look in the following
+places:
+
+Libraries:
+
+* `${EW_HOME}/lib`
+* `${EW_HOME}/earthworm_7.9/lib`
+
+Include files:
+
+* `${EW_HOME}/include`
+* `${EW_HOME}/earthworm_7.9/include`
+
+Thus, ensure that the `EW_HOME` environment variable is set apporpriately.
 
 Then:
 

@@ -190,7 +190,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='python_ew',
-    version='2.1.1',
+    version='2.1.2',
     author_email='imss-ads-staff@caltech.edu',
     author="Caltech IMSS ADS",
     url='https://github.com/caltechads/python-ew',

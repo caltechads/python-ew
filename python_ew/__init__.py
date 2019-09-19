@@ -1,4 +1,4 @@
-__version__ = "2.1.1"
+__version__ = "2.1.2"
 
 from python_ew.tracebuf2.tracebuf2ring import Tracebuf2Ring, Tracebuf2Message
 from python_ew.status.statusring import StatusRing, StatusMessage

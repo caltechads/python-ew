@@ -27,6 +27,3 @@ WORKDIR /app
 # Try building python_ew
 RUN python3 setup.py build && \
     python3 setup.py install
-
-# Now package it
-RUN python setup.py sdist
